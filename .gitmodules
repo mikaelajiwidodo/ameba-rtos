@@ -1,4 +1,0 @@
-[submodule "component/application/matter"]
-	path = component/application/matter
-	url = git@github.com:mikaelajiwidodo/ameba-rtos-matter.git
-	branch = ameba-rtos-v1.0/release/v1.3
