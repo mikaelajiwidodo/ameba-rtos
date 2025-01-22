@@ -43,11 +43,6 @@ ifneq ($(MBEDTLS_MATTER_ENABLE),y)
 MBEDTLSDIR	 = $(BASEDIR)/component/ssl/mbedtls-2.16.9
 endif
 
-ifeq ($(CONFIG_MATTER_EN), y)
-MATTER_DIR = $(BASEDIR)/component/application/matter
-MATTER_BUILDDIR = $(MATTER_DIR)/project/amebalite
-endif
-
 WIFIFWDIR	= $(BASEDIR)/component/wifi/wifi_fw
 WIFIMAKEDIR	= $(BASEDIR)/component/wifi/wifi_make
 
@@ -369,7 +364,7 @@ GLOBAL_CFLAGS += -DIMAGE2_BUILD
 endif
 
 ifeq ($(CONFIG_MATTER_EN), y)
-include $(MATTER_BUILDDIR)/Makefile.include.matter.km4.gen
+include $(BASEDIR)/component/application/matter/project/amebalite/Makefile.include.matter.km4.gen
 endif
 #*****************************************************************************#
 #                           ARM LD FLAGS
