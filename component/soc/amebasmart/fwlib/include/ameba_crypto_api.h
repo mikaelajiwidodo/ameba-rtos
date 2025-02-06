@@ -8,12 +8,6 @@
 #define __AMEBA_CRYPTO_API_H__
 #include "ameba_ipsec.h"
 
-#if defined(CHIP_PROJECT) && CHIP_PROJECT
-#ifndef IN
-#define IN
-#endif
-#endif
-
 /** @addtogroup HW_CRYPTO_ENGINE
   * @verbatim
   *****************************************************************************************
@@ -226,11 +220,5 @@ _LONG_CALL_ int rtl_crypto_chacha_poly1305_decrypt(IN const u8 *message, 	IN con
 /**
   * @}
   */
-
-#if defined(CHIP_PROJECT) && CHIP_PROJECT
-#ifdef IN
-#undef IN
-#endif
-#endif
 
 #endif /* __AMEBA_CRYPTO_API_H__ */

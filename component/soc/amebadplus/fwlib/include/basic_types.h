@@ -102,8 +102,10 @@ typedef unsigned char           bool;
 #endif
 #endif
 
+#ifndef __cplusplus
 #ifndef boolean
 #define boolean				bool
+#endif
 #endif
 
 typedef enum _RTK_STATUS_ {
@@ -500,12 +502,7 @@ typedef unsigned char	BOOLEAN, *PBOOLEAN;
 #endif
 
 #if defined(CHIP_PROJECT) && CHIP_PROJECT
-#ifdef boolean
-#undef boolean
-#endif
-#ifdef IN
-#undef IN
-#endif
+#include "basic_types_matter.h"
 #endif
 
 #endif// __BASIC_TYPES_H__

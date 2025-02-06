@@ -138,9 +138,9 @@ __STATIC_INLINE void SCB_DisableDCache_NS(void)
 {
 #if defined (__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U)
 #if defined(__cplusplus) && (__cplusplus >= 201703L)
-    uint32_t ccsidr;
-    uint32_t sets;
-    uint32_t ways;
+	uint32_t ccsidr;
+	uint32_t sets;
+	uint32_t ways;
 #else
 	register uint32_t ccsidr;
 	register uint32_t sets;
@@ -272,9 +272,9 @@ __STATIC_INLINE void SCB_DisableDCache(void)
 {
 #if defined (__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U)
 #if defined(__cplusplus) && (__cplusplus >= 201703L)
-    uint32_t ccsidr;
-    uint32_t sets;
-    uint32_t ways;
+	uint32_t ccsidr;
+	uint32_t sets;
+	uint32_t ways;
 #else
 	register uint32_t ccsidr;
 	register uint32_t sets;

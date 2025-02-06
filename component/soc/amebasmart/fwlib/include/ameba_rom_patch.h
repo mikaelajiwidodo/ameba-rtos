@@ -7,12 +7,6 @@
 #ifndef _AMEBA_ROM_PATCH_H_
 #define _AMEBA_ROM_PATCH_H_
 
-#if defined(CHIP_PROJECT) && CHIP_PROJECT
-#ifndef IN
-#define IN
-#endif
-#endif
-
 /* Exported constants --------------------------------------------------------*/
 /** @defgroup ROM_PATCH_Exported_Constants ROM_PATCH Exported Constants
   * @{
@@ -81,12 +75,6 @@ int rtl_crypto_hmac_sha2_final_A(OUT u8 *pDigest, hw_sha_context *ctx);
 
 #if defined(CONFIG_MATTER) && CONFIG_MATTER
 #define rtw_get_random_bytes TRNG_get_random_bytes
-#endif
-
-#if defined(CHIP_PROJECT) && CHIP_PROJECT
-#ifdef IN
-#undef IN
-#endif
 #endif
 
 #endif /* _AMEBA_ROM_PATCH_H_ */
