@@ -20,7 +20,6 @@
 
 #if defined(CONFIG_MATTER) && CONFIG_MATTER
 extern void at_matter_init(void);
-extern void fATmattershell(void *arg);
 #endif
 
 //======================================================
