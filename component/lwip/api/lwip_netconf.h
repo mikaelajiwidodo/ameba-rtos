@@ -18,8 +18,14 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "platform_autoconf.h"
 #include "rtw_wifi_constants.h"
+#if defined(CHIP_PROJECT) && CHIP_PROJECT
+#include "lwip/init.h"
+#include "lwip/tcpip.h"
+#include "lwip/err.h"
+#else
 #include "lwipconf.h"
 #include "lwip/netifapi.h"
+#endif
 
 extern unsigned char ap_ip[4], ap_netmask[4], ap_gw[4];
 // macros
