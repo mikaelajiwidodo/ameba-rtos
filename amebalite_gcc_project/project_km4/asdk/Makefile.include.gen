@@ -364,7 +364,7 @@ GLOBAL_CFLAGS += -DIMAGE2_BUILD
 endif
 
 ifeq ($(CONFIG_MATTER_EN), y)
-include $(BASEDIR)/component/application/matter/project/amebalite/Makefile.include.matter.km4.gen
+include $(BASEDIR)/component/application/matter/project/amebalite/Makefile.include.matter
 endif
 #*****************************************************************************#
 #                           ARM LD FLAGS

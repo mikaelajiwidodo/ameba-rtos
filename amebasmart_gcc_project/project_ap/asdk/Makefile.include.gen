@@ -315,7 +315,7 @@ GLOBAL_CFLAGS += -DIMAGE2_BUILD
 endif
 
 ifeq ($(CONFIG_MATTER_EN), y)
-include $(BASEDIR)/component/application/matter/project/amebasmart/Makefile.include.matter.ap.gen
+include $(BASEDIR)/component/application/matter/project/amebasmart/Makefile.include.matter
 endif
 #*****************************************************************************#
 #                           ARM LD FLAGS
