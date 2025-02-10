@@ -685,7 +685,7 @@ void at_wlstartap(void *arg)
 	char *argv[MAX_ARGC] = {0};
 #ifdef CONFIG_LWIP_LAYER
 	u32 ip_addr, netmask, gw;
-#if defined(CONFIG_MATTER) && CONFIG_MATTER
+#if LWIP_IPV6
 	struct ip4_addr start_ip, end_ip;
 #else
 	struct ip_addr start_ip, end_ip;
