@@ -620,6 +620,11 @@ bool "MBEDTLS Enable"		CONFIG_MBED_TLS_ENABLED_FOR_KM4
 bool "SSL ROM Test"		CONFIG_SSL_ROM_TEST_FOR_KM4
 if [ "$CONFIG_MATTER_EN" = "y" ]; then
 	bool "Matter MBEDTLS Enable"		MBEDTLS_MATTER_ENABLE
+	if [ "$MBEDTLS_MATTER_ENABLE" = "y" ]; then
+		choice 'Matter MBEDTLS Version' "MBEDTLS_MATTER_V_2_28_1   MBEDTLS_MATTER_V_2_28_1_ENABLE \
+										MBEDTLS_MATTER_V_3_6_1   MBEDTLS_MATTER_V_3_6_1_ENABLE
+										" MBEDTLS_MATTER_V_3_6_1
+	fi
 fi
 endmenu
 
