@@ -30,7 +30,7 @@ int32_t rt_kv_get(const char *key, void *buffer, int32_t len);
 int32_t rt_kv_delete(const char *key);
 
 #if defined(CONFIG_MATTER) && CONFIG_MATTER
-#include "kv_matter.h"
+#include "matter_kv.h"
 #endif /* CONFIG_MATTER */
 
 /** @} */ /* End of group KV */

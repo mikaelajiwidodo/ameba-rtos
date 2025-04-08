@@ -133,6 +133,8 @@ extern uint32_t SystemCoreClock;
 #define INCLUDE_vTaskDelayUntil							1
 #define INCLUDE_vTaskDelay								1
 #define INCLUDE_pcTaskGetTaskName       				1
+#define INCLUDE_uxTaskGetStackSize						1
+#define INCLUDE_uxTaskGetFreeStackSize					1
 #define INCLUDE_uxTaskGetStackHighWaterMark				0
 #define INCLUDE_xTaskGetIdleTaskHandle					0
 #define INCLUDE_eTaskGetState							1
@@ -237,9 +239,5 @@ void vAssertCalled(const char *pcFile, uint32_t ulLine);
 #endif
 
 #endif /* __IASMARM__ */
-
-#if defined(CONFIG_MATTER) && CONFIG_MATTER
-#include "FreeRTOSConfig_Matter.h"
-#endif /* CONFIG_MATTER */
 
 #endif /* FREERTOS_CONFIG_H */

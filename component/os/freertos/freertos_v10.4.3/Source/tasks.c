@@ -3602,7 +3602,6 @@ UBaseType_t uxTaskGetStackHighWaterMark(TaskHandle_t xTask)
 
 #endif /* INCLUDE_uxTaskGetStackHighWaterMark */
 /*-----------------------------------------------------------*/
-#if defined(CONFIG_MATTER) && CONFIG_MATTER
 #if ( INCLUDE_uxTaskGetStackSize == 1 )
 
 	uint32_t uxTaskGetStackSize( TaskHandle_t xTask )
@@ -3648,7 +3647,6 @@ UBaseType_t uxTaskGetStackHighWaterMark(TaskHandle_t xTask)
 
 #endif /* INCLUDE_uxTaskGetFreeStackSize */
 /*-----------------------------------------------------------*/
-#endif /* defined(CONFIG_MATTER) && CONFIG_MATTER */
 
 #if ( INCLUDE_vTaskDelete == 1 )
 

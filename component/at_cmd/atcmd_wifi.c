@@ -395,7 +395,7 @@ void at_wlconn(void *arg)
 #if defined(CONFIG_MATTER) && CONFIG_MATTER
 #if LWIP_VERSION_MAJOR >= 2 && LWIP_VERSION_MINOR >= 1
 #if LWIP_IPV6
-	LwIP_DHCP6(0, DHCP6_START);
+	matter_lwip_dhcp6();
 #endif
 #endif
 #endif
