@@ -689,6 +689,10 @@ comment '< Matter Config '
 bool "Enable Matter"							CONFIG_MATTER_EN
 if [ "$CONFIG_MATTER_EN" = "y" ]; then
 	define_bool CONFIG_MATTER y
+	bool "Enable Matter Terms and Condition"		CONFIG_MATTER_TC_EN
+	if [ "$CONFIG_MATTER_TC_EN" = "y" ]; then
+		define_bool CHIP_ENABLE_AMEBA_TERMS_AND_CONDITION y
+	fi
 fi
 endmenu
 
