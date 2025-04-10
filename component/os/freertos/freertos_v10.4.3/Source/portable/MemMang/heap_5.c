@@ -306,7 +306,6 @@ size_t xPortGetMinimumEverFreeHeapSize(void)
 }
 /*-----------------------------------------------------------*/
 
-#if defined(CONFIG_MATTER) && CONFIG_MATTER
 size_t xPortGetTotalHeapSize( void )
 {
 	extern uint32_t total_heap_size;
@@ -323,7 +322,6 @@ void xPortResetHeapMinimumEverFreeHeapSize(void)
     taskEXIT_CRITICAL();
 }
 /*-----------------------------------------------------------*/
-#endif
 
 static void prvInsertBlockIntoFreeList(BlockLink_t *pxBlockToInsert)
 {

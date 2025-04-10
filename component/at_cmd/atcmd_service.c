@@ -193,20 +193,11 @@ void *atcmd_handler(char *cmd)
 	char tok[33] = {0};//'\0'
 	char *tokSearch = NULL;
 	int prefix_length = strlen(atcmd_prefix);
-#if defined(CONFIG_MATTER) && CONFIG_MATTER
-	const char *matter_start = "ATmatter ";
-	int matter_length = strlen(matter_start);
-#endif
 
 	if (strncmp(cmd, atcmd_prefix, prefix_length) != 0) {
 		return NULL;
 	}
 
-#if defined(CONFIG_MATTER) && CONFIG_MATTER
-	if (strncmp(cmd, matter_start, matter_length) == 0) {
-		token = strsep(&copy, " ");
-	} else
-#endif
 	token = strsep(&copy, "=");
 	param = strsep(&copy, "\0");
 

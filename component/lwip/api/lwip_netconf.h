@@ -27,6 +27,10 @@ extern "C" {
 #include "lwip/netifapi.h"
 #endif
 
+#if defined(CONFIG_MATTER) && CONFIG_MATTER
+extern struct netif xnetif[];
+#endif
+
 extern unsigned char ap_ip[4], ap_netmask[4], ap_gw[4];
 // macros
 /* Give default value if not defined */
@@ -142,10 +146,6 @@ int netif_get_idx(struct netif *pnetif);
 uint32_t LwIP_GetXID(uint8_t idx);
 uint32_t LwIP_GetLEASETIME(uint8_t idx);
 uint32_t LwIP_GetRENEWTIME(uint8_t idx);
-
-#if defined(CONFIG_MATTER) && CONFIG_MATTER
-#include "lwip_netconf_matter.h"
-#endif
 
 #ifdef __cplusplus
 }
