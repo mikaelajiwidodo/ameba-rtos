@@ -20,8 +20,7 @@ extern "C"  {
 #define BLE_MATTER_SERVICE_CHAR_INDICATE_CCCD_INDEX      (BLE_MATTER_SERVICE_CHAR_TX_INDEX + 1)
 #define BLE_MATTER_SERVICE_C3_INDEX                      0x07
 
-typedef enum
-{
+typedef enum {
     BLE_MATTER_MSG_CONNECTED = 1,
     BLE_MATTER_MSG_DISCONNECTED,
     BLE_MATTER_MSG_WRITE_CB,
@@ -31,38 +30,32 @@ typedef enum
     BLE_MATTER_MSG_READ
 } BLE_MATTER_APP_MSG;
 
-typedef struct
-{
+typedef struct {
     uint8_t conn_id;
 } BLE_MATTER_APP_CONNECT_CB_ARG;
 
-typedef struct
-{
+typedef struct {
     uint8_t conn_id;
     uint16_t disc_cause;
 } BLE_MATTER_APP_DISCONNECT_CB_ARG;
 
-typedef struct
-{
+typedef struct {
     uint8_t conn_id;
     uint8_t *p_value;
     uint16_t len;
 } BLE_MATTER_APP_WRITE_CB_ARG;
 
-typedef struct
-{
+typedef struct {
     uint8_t conn_id;
     uint8_t indicationsEnabled;
     uint8_t notificationsEnabled;
 } BLE_MATTER_APP_CCCD_CB_ARG;
 
-typedef struct
-{
+typedef struct {
     uint8_t conn_id;
 } BLE_MATTER_APP_SEND_COMPLETE_CB_ARG;
 
-typedef struct
-{
+typedef struct {
     uint8_t **pp_value;
     uint16_t *p_len;
 } BLE_MATTER_APP_READ_CB_ARG;

@@ -74,7 +74,7 @@ case "$AMEBA" in
   ameba-rtos)
     if [ ! -d component/application/matter ] || [ -z "$(find component/application/matter -mindepth 1)" ]; then
       mkdir -p component/application/matter
-      git clone https://github.com/mikaelajiwidodo/ameba-rtos-matter.git component/application/matter -b ameba-rtos-v1.0/release/v1.3
+      git clone https://github.com/mikaelajiwidodo/ameba-rtos-matter.git component/application/matter -b ameba-rtos-v1.0/release/v1.4
     fi
     ;;
   *)
