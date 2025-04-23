@@ -122,6 +122,9 @@ endif
 ifeq ($(findstring y, $(CONFIG_BT_WIFIMATE_DEVICE) $(CONFIG_BT_WIFIMATE_CONFIGURATOR)), y)
 	make -C ble_wifimate all
 endif
+ifeq ($(CONFIG_BLE_MATTER_ADAPTER),y)
+	make -C ble_matter_adapter all
+endif
 
 #*****************************************************************************#
 #                            GENERATE OBJECT FILE                             #
@@ -254,6 +257,9 @@ ifeq ($(CONFIG_BT_PTS), y)
 endif
 ifeq ($(findstring y, $(CONFIG_BT_WIFIMATE_DEVICE) $(CONFIG_BT_WIFIMATE_CONFIGURATOR)), y)
 	make -C ble_wifimate clean
+endif
+ifeq ($(CONFIG_BLE_MATTER_ADAPTER),y)
+	make -C ble_matter_adapter clean
 endif
 
 -include $(DEPS)
