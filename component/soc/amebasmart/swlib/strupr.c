@@ -18,7 +18,7 @@
 LIBC_ROM_TEXT_SECTION
 _LONG_CALL_ u8 *
 _strupr(
-	IN  u8  *string
+	u8  *string
 )
 {
 	u8  *pStr;

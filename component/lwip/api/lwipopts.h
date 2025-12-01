@@ -61,7 +61,11 @@ extern unsigned int sys_now(void);
 #define TCP_SND_BUF                     (5 * TCP_MSS)
 #define TCP_SND_QUEUELEN                (4 * TCP_SND_BUF / TCP_MSS)
 /* Pbuf options */
+#if defined(CONFIG_PBUF_POOL_BUFSIZE)
+#define PBUF_POOL_BUFSIZE               CONFIG_PBUF_POOL_BUFSIZE
+#else
 #define PBUF_POOL_BUFSIZE               508
+#endif
 /* Network Interfaces options */
 #define LWIP_NETIF_API                  1
 #define LWIP_NUM_NETIF_CLIENT_DATA      1

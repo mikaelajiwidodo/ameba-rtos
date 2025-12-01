@@ -18,6 +18,7 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "lwipconf.h"
 
+extern struct netif xnetif[];
 extern unsigned char ap_ip[4], ap_netmask[4], ap_gw[4];
 // macros
 /* Give default value if not defined */

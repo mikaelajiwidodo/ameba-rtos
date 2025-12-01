@@ -195,7 +195,7 @@ __weak int DiagVSprintf(char *buf, const char *fmt, va_list ap)
 HAL_ROM_TEXT_SECTION
 _LONG_CALL_ __weak u32
 DiagPrintf(
-	IN  const char *fmt, ...
+	const char *fmt, ...
 )
 {
 	log_buffer_t *buf = NULL;
@@ -224,7 +224,7 @@ DiagPrintf(
 HAL_ROM_TEXT_SECTION
 _LONG_CALL_ u32
 DiagPrintfD(
-	IN  const char *fmt, ...
+	const char *fmt, ...
 )
 {
 	//log_buffer_t *buf = NULL;
@@ -245,8 +245,8 @@ DiagPrintfD(
 HAL_ROM_TEXT_SECTION
 u32
 DiagSPrintf(
-	IN  u8 *buf,
-	IN  const char *fmt, ...
+	u8 *buf,
+	const char *fmt, ...
 )
 {
 	int ret = 0;

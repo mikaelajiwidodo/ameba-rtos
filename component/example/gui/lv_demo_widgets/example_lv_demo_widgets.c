@@ -26,7 +26,7 @@ void lv_demo_widgets_task(void *param)
 }
 
 #ifdef CMD_TEST
-u32 lv_demo_widgets_show(IN  u16 argc, IN  u8  *argv[])
+u32 lv_demo_widgets_show(u16 argc, u8  *argv[])
 {
 	UNUSED(argc);
 	UNUSED(argv);

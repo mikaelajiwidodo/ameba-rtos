@@ -130,6 +130,8 @@ menu "CONFIG APPLICATION"
 
     orsource "${APP_DIR}/Kconfig.prj"
 
+    orsource "../component/application/matter/project/cmake/Kconfig"
+
 endmenu
 
 

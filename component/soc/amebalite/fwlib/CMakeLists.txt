@@ -107,11 +107,14 @@ elseif(${c_CURRENT_IMAGE_TYPE} STREQUAL "image2")
     endif()
 elseif(${c_CURRENT_IMAGE_TYPE} STREQUAL "image3")
     ameba_list_append(private_sources
+        ram_${c_MCU_TYPE}/ameba_arch.c
         ram_km4/ameba_trustzone.c
+        ram_common/ameba_ipc_ram.c
         ram_common/ameba_gdma_ram.c
         ram_common/ameba_codec.c
         ram_common/ameba_sport.c
         ram_common/ameba_vad.c
+        ram_common/ameba_pll.c
         ram_common/ameba_ledc.c
         ram_common/ameba_uart.c
         ram_common/ameba_spi.c
