@@ -19,6 +19,9 @@ ifeq ($(CONFIG_WIFI_AUDIO),y)
 	make -C wifi-audio all
 	#make -C wifi-audio test
 endif
+ifeq ($(CONFIG_MATTER_EN), y)
+	@make -C $(MATTER_BUILD_DIR)/make all
+endif
 
 #*****************************************************************************#
 #              GENERATE OBJECT FILE
@@ -31,4 +34,8 @@ CORE_TARGETS: $(OBJS)
 clean:
 	make -C demoui clean
 	make -C wifi-audio clean
+ifeq ($(CONFIG_MATTER_EN), y)
+	@make -C $(MATTER_BUILD_DIR)/make clean
+endif
+
 -include $(DEPS)

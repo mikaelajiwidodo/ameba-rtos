@@ -15,14 +15,14 @@ SLEEP_ParamDef dsleep_param;
 
 u32
 CmdRamHelp(
-	IN  u16 argc,
-	IN  u8  *argv[]
+	u16 argc,
+	u8  *argv[]
 );
 
 u32
 cmd_reboot(
-	IN  u16 argc,
-	IN  u8  *argv[]
+	u16 argc,
+	u8  *argv[]
 )
 {
 	RTK_LOGS(TAG, "Rebooting ...\n\r");
@@ -38,8 +38,8 @@ cmd_reboot(
 
 u32
 CmdTickPS(
-	IN  u16 argc,
-	IN  u8  *argv[]
+	u16 argc,
+	u8  *argv[]
 )
 {
 	if (_strcmp((const char *)argv[0], "r") == 0) { // release
@@ -83,8 +83,8 @@ CmdTickPS(
 
 u32
 CmdRTC(
-	IN  u16 argc,
-	IN  u8  *argv[]
+	u16 argc,
+	u8  *argv[]
 )
 {
 	/* To avoid gcc warnings */
@@ -132,8 +132,8 @@ CmdRTC(
 
 u32
 CmdLogBuf(
-	IN  u16 argc,
-	IN  u8  *argv[]
+	u16 argc,
+	u8  *argv[]
 )
 {
 	/* To avoid gcc warnings */
@@ -295,8 +295,8 @@ exit:
 
 u32
 CmdTsfTest(
-	IN  u16 argc,
-	IN  u8  *argv[]
+	u16 argc,
+	u8  *argv[]
 )
 {
 	/* To avoid gcc warnings */
@@ -483,8 +483,8 @@ const COMMAND_TABLE   shell_cmd_table[] = {
 
 u32
 CmdRamHelp(
-	IN  u16 argc,
-	IN  u8  *argv[]
+	u16 argc,
+	u8  *argv[]
 )
 {
 	/* To avoid gcc warnings */

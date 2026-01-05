@@ -128,6 +128,9 @@ if [ "$CONFIG_BT_MENU" = "y" ]; then
 	fi
 	bool "BT Example Demo"												CONFIG_BT_EXAMPLE_DEMO_MENU
 	if [ "$CONFIG_BT_EXAMPLE_DEMO_MENU" = "y" ]; then
+		if [ "$CONFIG_MATTER_EN" = "y" ]; then
+			bool "  BLE_Matter_Adapter"	CONFIG_BLE_MATTER_ADAPTER
+		fi
 		bool "  BLE Peripheral"											CONFIG_BT_PERIPHERAL
 		bool "  BLE Central"											CONFIG_BT_CENTRAL
 		bool "  BLE Scatternet"											CONFIG_BT_SCATTERNET
@@ -615,6 +618,16 @@ comment '< SSL Config'
 define_bool CONFIG_USE_MBEDTLS_ROM_FOR_KM4 y
 bool "MBEDTLS Enable"		CONFIG_MBED_TLS_ENABLED_FOR_KM4
 bool "SSL ROM Test"		CONFIG_SSL_ROM_TEST_FOR_KM4
+if [ "$CONFIG_MATTER_EN" = "y" ]; then
+	bool "Matter MBEDTLS Enable"		MBEDTLS_MATTER_ENABLE
+	if [ "$MATTER_V_1_4_EN" = "y" ] || [ "$MATTER_V_1_5_EN" = "y" ]; then
+		if [ "$MBEDTLS_MATTER_ENABLE" = "y" ]; then
+			choice 'Matter MBEDTLS Version' "MBEDTLS_MATTER_V_2_28_1   MBEDTLS_MATTER_V_2_28_1_ENABLE \
+											MBEDTLS_MATTER_V_3_6_1   MBEDTLS_MATTER_V_3_6_1_ENABLE
+											"
+		fi
+	fi
+fi
 endmenu
 
 # mainmenu_option next_comment
@@ -672,6 +685,32 @@ endmenu
 	# fi
 # fi
 # endmenu
+
+mainmenu_option next_comment
+comment '< Matter Config '
+bool "Enable Matter"							CONFIG_MATTER_EN
+if [ "$CONFIG_MATTER_EN" = "y" ]; then
+	define_bool CONFIG_MATTER y
+	choice 'Matter Version' "MATTER_V_1_3   MATTER_V_1_3_EN \
+							MATTER_V_1_4   MATTER_V_1_4_EN \
+							MATTER_V_1_5   MATTER_V_1_5_EN
+							"
+	if [ "$MATTER_V_1_4_EN" = "y" ] || [ "$MATTER_V_1_5_EN" = "y" ]; then
+		bool "Enable Matter Terms and Condition"		CONFIG_MATTER_TC_EN
+		if [ "$CONFIG_MATTER_TC_EN" = "y" ]; then
+			define_bool CHIP_ENABLE_AMEBA_TERMS_AND_CONDITION y
+		fi
+	fi
+	if [ "$CONFIG_TRUSTZONE_FOR_KM4" = "y" ]; then
+		bool "Enable Matter Secure"					CONFIG_MATTER_SECURE_EN
+		if [ "$CONFIG_MATTER_SECURE_EN" = "y" ]; then
+			define_bool CONFIG_MATTER_SECURE y
+			define_int CONFIG_TZ_S_SIZE 136
+			define_int CONFIG_SECURE_HEAP_SIZE 14336
+		fi
+	fi
+fi
+endmenu
 
 mainmenu_option next_comment
 comment '< Audio Config'

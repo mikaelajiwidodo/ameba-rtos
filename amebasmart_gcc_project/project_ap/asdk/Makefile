@@ -98,6 +98,13 @@ endif
 ifeq ($(findstring y, $(CONFIG_USB_DRD_EN)), y)
 LINK_APP_LIB += $(APP_LIB_DIR)/lib_usb.a
 endif
+ifeq ($(CONFIG_MATTER_EN), y)
+ifeq ($(CONFIG_CORE_NUM),1)
+LINK_APP_LIB += $(ROOTDIR)/lib/soc/matter/lib_freertos_smp_sc.a
+else
+LINK_APP_LIB += $(ROOTDIR)/lib/soc/matter/lib_freertos_smp.a
+endif
+else
 ifeq ($(CONFIG_MP_SHRINK), y)
 ifeq ($(CONFIG_CORE_NUM),1)
 LINK_APP_LIB += $(ROOTDIR)/lib/soc/lib_freertos_smp_sc_mp.a
@@ -109,6 +116,7 @@ ifeq ($(CONFIG_CORE_NUM),1)
 LINK_APP_LIB += $(ROOTDIR)/lib/soc/lib_freertos_smp_sc.a
 else
 LINK_APP_LIB += $(ROOTDIR)/lib/soc/lib_freertos_smp.a
+endif
 endif
 endif
 LINK_APP_LIB += $(ROOTDIR)/lib/soc/lib_chipinfo.a
@@ -192,6 +200,11 @@ endif
 endif
 endif
 
+#matter
+ifeq ($(CONFIG_MATTER_EN), y)
+LINK_THIRD_APP_LIB += -Wl,--start-group $(ROOTDIR)/lib/application/lib_main.a $(ROOTDIR)/lib/application/libCHIP.a -Wl,--end-group
+endif
+
 ifneq ($(wildcard ./$(WIFI_MAKE_DIR)/Makefile.lib.wifi),)
 include ./$(WIFI_MAKE_DIR)/Makefile.lib.wifi
 make_subdirs_lib_img2: make_wifi_lib
@@ -202,6 +215,15 @@ prebuild: build_target_folder check_toolchain build_info.h
 bootloader: prebuild make_atf
 image2: prebuild copy_ld_img2 make_subdirs linker_image2 fip_image code_analyze
 lib_image2: prebuild copy_ld_img2 make_subdirs_lib_img2
+
+#*****************************************************************************#
+#                         MATTER MAKE RULES                                   #
+#*****************************************************************************#
+
+ifeq ($(CONFIG_MATTER_EN), y)
+include $(MATTER_BUILD_DIR)/Makefile
+endif
+
 #*****************************************************************************#
 #                      RULES TO CREATE DIRECTORY                              #
 #*****************************************************************************#
@@ -533,6 +555,13 @@ clean:
 
 	# atf/tools cannot use CLEAN_BY_SEARCH_FUNC because its objects are not in project directory.
 	make -C make/atf clean
+
+ifeq ($(CONFIG_MATTER_EN), y)
+	@make -C $(MATTER_BUILD_DIR)/make/chip_main clean
+	@make -C $(MATTER_BUILD_DIR)/make/chip clean
+	@make -C $(MATTER_BUILD_DIR)/make clean
+	@rm -rf $(MATTER_TOOL_DIR)/codegen_helpers/gen
+endif
 
 clean_all: clean
 

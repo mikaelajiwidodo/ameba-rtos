@@ -102,8 +102,10 @@ typedef unsigned char           bool;
 #endif
 #endif
 
+#ifndef __cplusplus
 #ifndef boolean
 #define boolean				bool
+#endif
 #endif
 
 typedef enum _RTK_STATUS_ {
@@ -111,9 +113,6 @@ typedef enum _RTK_STATUS_ {
 	_EXIT_FAILURE = 1
 } RTK_STATUS, *PRTK_STATUS;
 
-#define IN
-#define OUT
-#define INOUT
 #define NDIS_OID uint
 #define NDIS_STATUS uint
 

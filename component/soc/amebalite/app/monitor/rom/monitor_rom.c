@@ -19,8 +19,8 @@ static u32 cmd_rom_help(u16 argc, u8  *argv[]);
 SHELL_ROM_TEXT_SECTION
 static u32
 cmd_reboot(
-	IN  u16 argc,
-	IN  u8  *argv[]
+	u16 argc,
+	u8  *argv[]
 )
 {
 	if (_strcmp((const char *)argv[0], "uartburn") == 0) {

@@ -19,8 +19,8 @@ static u32 cmd_rom_help(u16 argc, u8  *argv[]);
 SHELL_ROM_TEXT_SECTION
 static u32
 cmd_reboot(
-	IN  u16 argc,
-	IN  u8  *argv[]
+	u16 argc,
+	u8  *argv[]
 )
 {
 	if (_strcmp((const char *)argv[0], "uartburn") == 0) {
@@ -38,8 +38,8 @@ cmd_reboot(
 SHELL_ROM_TEXT_SECTION
 static u32
 cmd_Iboot_Set(
-	IN  u16 argc,
-	IN  u8  *argv[]
+	u16 argc,
+	u8  *argv[]
 )
 {
 	u32 temp = HAL_READ32(SYSTEM_CTRL_BASE, REG_AON_TESTING_CFG);

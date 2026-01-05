@@ -16,6 +16,12 @@ COMPILEOS = $(shell uname -o)
 LINUX_OS = GNU/Linux
 PROJECT_DIR = ../../../../amebasmart_gcc_project/project_ap
 
+ifeq ($(CONFIG_MATTER_SECURE_EN),y)
+BASEDIR           := ../../../..
+MATTER_DIR        := $(BASEDIR)/component/application/matter
+MATTER_BUILD_DIR  := $(MATTER_DIR)/project/makefile/amebasmart
+endif #CONFIG_MATTER_SECURE_EN
+
 ifeq ($(COMPILEOS),$(LINUX_OS))
 CROSS_COMPILE = $(TOOLCHAINDIR)/asdk-$(ASDK_VER)/linux/newlib/bin/arm-none-eabi-
 else
@@ -655,6 +661,14 @@ $(info Including ${AARCH32_SP_MAKE})
 include ${AARCH32_SP_MAKE}
 endif
 
+endif
+
+################################################################################
+# Include Matter Secure
+################################################################################
+
+ifeq ($(CONFIG_MATTER_SECURE_EN),y)
+include $(MATTER_BUILD_DIR)/make/atf/Makefile
 endif
 
 ################################################################################

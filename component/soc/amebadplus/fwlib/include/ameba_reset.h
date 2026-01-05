@@ -83,6 +83,9 @@ enum CHIPEN_WORK_MODE {
 #define SYS_RESET_KEY 0x96969696
 #define SYS_RESET_TRIG 0x69696969
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 extern void CHIPEN_WorkMode(enum CHIPEN_WORK_MODE mode);
 extern void CHIPEN_DebounceSet(u32 Debounce);
@@ -108,6 +111,10 @@ __STATIC_INLINE u32 SYS_CPUID(void)
 
 	return LSYS_GET_HW_CPU_ID(temp);
 }
+
+#ifdef __cplusplus
+}
+#endif
 
 /* MANUAL_GEN_END */
 

@@ -45,10 +45,12 @@ FLASHDLIMGDIR_KM4	= $(KM4_BUILDDIR)/asdk/gnu_utility/gnu_script/acut_loader
 OSDIR		= $(BASEDIR)/component/os
 FREERTOSDIR	= $(BASEDIR)/component/os/freertos/freertos_v10.2.1_smp/Source/
 
+ifneq ($(MBEDTLS_MATTER_ENABLE),y)
 ifeq ($(MBEDTLS_V_2_16_9_ENABLE), y)
 MBEDTLSDIR	 = $(BASEDIR)/component/ssl/mbedtls-2.16.9
 else ifeq ($(MBEDTLS_V_3_4_1_ENABLE), y)
 MBEDTLSDIR	 = $(BASEDIR)/component/ssl/mbedtls-3.4.1
+endif
 endif
 
 
@@ -204,6 +206,7 @@ IFLAGS               += -I$(BASEDIR)/component/os_dep
 IFLAGS               += -I$(BASEDIR)/component/ssl/ssl_ram_map/rom
 
 #MBEDTLS
+ifneq ($(MBEDTLS_MATTER_ENABLE),y)
 ifeq ($(MBEDTLS_V_2_16_9_ENABLE), y)
 IFLAGS               += -I$(BASEDIR)/component/ssl/mbedtls-2.16.9/include
 else ifeq ($(MBEDTLS_V_3_4_1_ENABLE), y)
@@ -212,6 +215,7 @@ IFLAGS               += -I$(BASEDIR)/component/ssl/mbedtls-3.4.1/library
 IFLAGS               += -I$(BASEDIR)/component/ssl/mbedtls-3.4.1/function_map
 endif
 IFLAGS               += -I$(BASEDIR)/component/ssl/mbedtls_ram_map/rom
+endif
 
 #apple
 IFLAGS               += -I$(BASEDIR)/component/application/apple/WACServer/External/Curve25519 \
@@ -256,9 +260,11 @@ ASM_FLAGS += $(MODULE_IFLAGS)
 #*****************************************************************************#
 #                           ARM COMPILATION FLAGS
 #*****************************************************************************#
-GLOBAL_CFLAGS += -O2 -g 
+GLOBAL_CFLAGS += -Os -g 
 #avoid compile optimize based on undefined behavior
+ifneq ($(CONFIG_MATTER_EN),y)
 GLOBAL_CFLAGS += -fno-strict-aliasing -fno-strict-overflow -fno-delete-null-pointer-checks
+endif
 #GLOBAL_CFLAGS += -specs nosys.specs 
 GLOBAL_CFLAGS += -mcpu=cortex-a32 -mfpu=neon -mfloat-abi=hard 
 GLOBAL_CFLAGS += -marm 
@@ -279,10 +285,13 @@ GLOBAL_CFLAGS += -Wpointer-arith
 GLOBAL_CFLAGS += -fno-builtin-memset
 GLOBAL_CFLAGS += -fno-builtin-memcpy
 
-GLOBAL_CFLAGS += -Wundef
 GLOBAL_CFLAGS += -Wno-write-strings
 GLOBAL_CFLAGS += -Wno-maybe-uninitialized
+ifneq ($(CONFIG_MATTER_EN),y)
+GLOBAL_CFLAGS += -Wundef
+GLOBAL_CFLAGS += -Wstrict-prototypes
 GLOBAL_CFLAGS += --save-temps
+endif
 GLOBAL_CFLAGS += -c
 GLOBAL_CFLAGS += -MMD -MP
 GLOBAL_CFLAGS += -fno-jump-tables #For link _thumb1_case_uqi issue
@@ -298,13 +307,22 @@ GLOBAL_CFLAGS += $(ADD_DEFINE)
 #COPY GLOBAL_CFLAGS to CPP_FLAGS except -Wstrict-prototypes
 CPPFLAGS = $(filter-out -Wstrict-prototypes, $(GLOBAL_CFLAGS))
 #CPPFLAGS = $(GLOBAL_CFLAGS)
+ifneq ($(CONFIG_MATTER_EN),y)
 CPPFLAGS += -std=c++11 -fno-use-cxa-atexit
-
-GLOBAL_CFLAGS += -Wstrict-prototypes
+endif
 
 ifeq (${IMAGE2_CFLAGS},YES)
 GLOBAL_CFLAGS += -DIMAGE2_BUILD
 endif
+
+ifeq ($(CONFIG_MATTER_EN), y)
+ifeq ($(MATTER_V_1_5_EN), y)
+include $(BASEDIR)/component/application/matter/project/makefile/amebasmart/Makefile.include.matter
+else
+include $(BASEDIR)/component/application/matter/project/amebasmart/Makefile.include.matter
+endif
+endif
+
 #*****************************************************************************#
 #                           ARM LD FLAGS
 #*****************************************************************************#
@@ -318,7 +336,7 @@ endif
 #"-Wl,--build-id=none"
 #],
 #"LDFlags": [
-#"-O2",
+#"-Os",
 #"-march=armv8-m.base",
 #"-mthumb",
 #"-mcmse"
@@ -330,7 +348,7 @@ LD_ARG += -L$(ROOTDIR)/lib/
 LD_ARG += -T$(BUILD_TARGET_FOLDER)/rlx8721d.ld 
 
 #LD_ARG += -u _printf_float -u _scanf_float 
-LD_ARG += -O2  
+LD_ARG += -Os  
 LD_ARG += -mcpu=cortex-a32 -mfpu=vfpv4 -mfloat-abi=hard 
 #LD_ARG += -mthumb 
 #LD_ARG += -mcmse 

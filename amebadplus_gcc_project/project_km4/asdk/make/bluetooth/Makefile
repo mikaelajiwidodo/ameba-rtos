@@ -32,6 +32,9 @@ endif
 ifeq ($(CONFIG_BT_ZEPHYR), y)
 	make -C bt_zephyr all
 endif
+ifeq ($(CONFIG_BLE_MATTER_ADAPTER),y)
+	make -C ble_matter_adapter all
+endif
 ifeq ($(CONFIG_BT_PERIPHERAL), y)
 	make -C ble_peripheral all
 endif

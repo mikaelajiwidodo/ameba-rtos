@@ -36,7 +36,9 @@ TOOLCHAINDIR	= /opt/rtk-toolchain
 
 OSDIR		= $(BASEDIR)/component/os
 FREERTOSDIR	= $(BASEDIR)/component/os/freertos/freertos_v10.4.3/Source
+ifneq ($(MBEDTLS_MATTER_ENABLE),y)
 MBEDTLSDIR	 = $(BASEDIR)/component/ssl/mbedtls-2.16.9
+endif
 
 WIFIFWDIR	= $(BASEDIR)/component/wifi/wifi_fw
 WIFIMAKEDIR = $(BASEDIR)/component/wifi/wifi_make
@@ -187,8 +189,10 @@ IFLAGS               += -I$(BASEDIR)/component/network/rtsp
 #IFLAGS               += -I$(BASEDIR)/component/ssl/ssl_ram_map/rom
 
 #MBEDTLS
+ifneq ($(MBEDTLS_MATTER_ENABLE),y)
 IFLAGS               += -I$(BASEDIR)/component/ssl/mbedtls-2.16.9/include
 IFLAGS               += -I$(BASEDIR)/component/ssl/mbedtls_ram_map/rom
+endif
 
 #apple
 IFLAGS               += -I$(BASEDIR)/component/application/apple/WACServer/External/Curve25519 \
@@ -255,7 +259,7 @@ endif
 #"-nostartfiles",
 #"-nodefaultlibs",
 #"-nostdlib",
-#"-O2",
+#"-Os",
 #"-DCONFIG_PLATFORM_8195BHP",
 #"-D__ARM_ARCH_7M__=0",
 #"-D__ARM_ARCH_7EM__=0",
@@ -290,9 +294,11 @@ GLOBAL_CFLAGS += -g
 GLOBAL_CFLAGS += -gdwarf-3
 GLOBAL_CFLAGS += -nodefaultlibs
 GLOBAL_CFLAGS += -nostdlib
-GLOBAL_CFLAGS += -O2
+GLOBAL_CFLAGS += -Os
 #avoid compile optimize based on undefined behavior
+ifneq ($(CONFIG_MATTER_EN),y)
 GLOBAL_CFLAGS += -fno-strict-aliasing -fno-strict-overflow -fno-delete-null-pointer-checks
+endif
 GLOBAL_CFLAGS += -fno-tree-loop-distribute-patterns
 GLOBAL_CFLAGS += -flax-vector-conversions
 
@@ -305,11 +311,13 @@ GLOBAL_CFLAGS += -nostdlib
 GLOBAL_CFLAGS += -fno-builtin-printf
 GLOBAL_CFLAGS += -Wall
 GLOBAL_CFLAGS += -Wpointer-arith
-GLOBAL_CFLAGS += -Wstrict-prototypes
-GLOBAL_CFLAGS += -Wundef
 GLOBAL_CFLAGS += -Wno-write-strings
 GLOBAL_CFLAGS += -Wno-maybe-uninitialized
+ifneq ($(CONFIG_MATTER_EN),y)
+GLOBAL_CFLAGS += -Wstrict-prototypes
+GLOBAL_CFLAGS += -Wundef
 GLOBAL_CFLAGS += --save-temps
+endif
 GLOBAL_CFLAGS += -c
 GLOBAL_CFLAGS += -MMD -MP
 
@@ -331,9 +339,13 @@ GLOBAL_CFLAGS += -ffile-prefix-map=$(BASEDIR)=.
 
 # COPY GLOBAL_CFLAGS to CPP_FLAGS except -Wstrict-prototypes
 CPPFLAGS = $(filter-out -Wstrict-prototypes, $(GLOBAL_CFLAGS))
+ifneq ($(CONFIG_MATTER_EN),y)
 CPPFLAGS += -std=c++11 -fno-use-cxa-atexit
+endif
 
+ifneq ($(CONFIG_MATTER_EN),y)
 GLOBAL_CFLAGS += -Wstrict-prototypes
+endif
 
 ifneq (${ROM_CFLAG},YES)
 GLOBAL_CFLAGS += -fdata-sections
@@ -344,11 +356,19 @@ ifeq (${IMAGE2_CFLAGS},YES)
 GLOBAL_CFLAGS += -DIMAGE2_BUILD
 endif
 
+ifeq ($(CONFIG_MATTER_EN), y)
+ifeq ($(MATTER_V_1_5_EN), y)
+include $(BASEDIR)/component/application/matter/project/makefile/amebadplus/Makefile.include.matter
+else
+include $(BASEDIR)/component/application/matter/project/amebadplus/Makefile.include.matter
+endif
+endif
+
 #*****************************************************************************#
 #                           ARM LD FLAGS
 #*****************************************************************************#
 #"LDFlags": [
-#"-O2",
+#"-Os",
 #"-march=armv8-m.main+dsp",
 #"-mthumb",
 #"-mcmse",
@@ -370,7 +390,7 @@ LD_ARG += -L$(ASDK_TOOLCHAIN)/lib/gcc/arm-none-eabi/$(ASDK_VER)/thumb/v8-m.main+
 LD_ARG += -L$(ROOTDIR)/lib/
 LD_ARG += -T$(BUILD_TARGET_FOLDER)/rlx8721d.ld
 
-LD_ARG += -O2
+LD_ARG += -Os
 LD_ARG += -march=armv8.1-m.main+dsp
 LD_ARG += -mthumb
 LD_ARG += -mcmse

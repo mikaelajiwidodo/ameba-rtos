@@ -59,7 +59,7 @@ int __wrap_stricmp(const char *cs, const char *ct)
 }
 
 LIBC_ROM_TEXT_SECTION
-u8 *__wrap_strupr(IN  u8  *string)
+u8 *__wrap_strupr(u8  *string)
 {
 	return _strupr(string);
 }

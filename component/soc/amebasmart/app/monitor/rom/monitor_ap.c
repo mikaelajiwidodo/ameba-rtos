@@ -20,8 +20,8 @@ static const char *TAG = "MONITOR";
 
 u32
 CmdRamHelp(
-	IN  u16 argc,
-	IN  u8  *argv[]
+	u16 argc,
+	u8  *argv[]
 )
 {
 	/* To avoid gcc warnings */
@@ -45,8 +45,8 @@ CmdRamHelp(
 
 static u32
 cmd_reboot(
-	IN  u16 argc,
-	IN  u8  *argv[]
+	u16 argc,
+	u8  *argv[]
 )
 {
 	if (argc >= 1) {
@@ -288,8 +288,8 @@ u32 cmd_write_word(u16 argc, u8  *argv[])
 
 u32
 CmdTickPS(
-	IN  u16 argc,
-	IN  u8  *argv[]
+	u16 argc,
+	u8  *argv[]
 )
 {
 	if (_strcmp((const char *)argv[0], "r") == 0) { // release

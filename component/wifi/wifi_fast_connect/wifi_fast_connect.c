@@ -147,6 +147,11 @@ int wifi_do_fast_connect(void)
 
 #ifdef CONFIG_LWIP_LAYER
 	netifapi_netif_set_up(&xnetif[0]);
+#if defined(CONFIG_MATTER) && CONFIG_MATTER
+#if LWIP_IPV6
+	netif_create_ip6_linklocal_address(&xnetif[0], 1);
+#endif
+#endif
 #endif
 
 #if CONFIG_AUTO_RECONNECT
@@ -266,6 +271,11 @@ WIFI_RETRY_LOOP:
 #ifdef CONFIG_LWIP_LAYER
 		if (ret == RTW_SUCCESS) {
 			LwIP_DHCP(0, DHCP_START);
+#if defined(CONFIG_MATTER) && CONFIG_MATTER
+#if LWIP_IPV6
+			matter_lwip_dhcp6();
+#endif
+#endif
 		}
 #endif
 		free(data);

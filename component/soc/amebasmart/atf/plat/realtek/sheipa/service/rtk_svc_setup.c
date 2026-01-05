@@ -49,7 +49,11 @@ static uintptr_t rtk_smc_handler(uint32_t smc_fid,
 		ret1 = rtk_secure_service(x1, x2, x3, &ret2);
 		ret2_enabled = true;
 		break;
-
+#if defined(CONFIG_MATTER_SECURE) && (CONFIG_MATTER_SECURE == 1)
+	case RTK_SMC_MATTER_SECURE:
+		ret1 = matter_secure_smc_handler(x1, x2, x3, x4);
+		break;
+#endif
 	default:
 		WARN("Unimplemented Standard Service Call: 0x%x \n", smc_fid);
 		SMC_RET1(handle, SMC_UNK);

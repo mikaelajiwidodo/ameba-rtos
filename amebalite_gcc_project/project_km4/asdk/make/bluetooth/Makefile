@@ -32,6 +32,9 @@ endif
 	make -C ble_mesh_ota_common all
 endif
 
+ifeq ($(CONFIG_BLE_MATTER_ADAPTER),y)
+	make -C ble_matter_adapter all
+endif
 ifeq ($(CONFIG_BT_PERIPHERAL), y)
 	make -C ble_peripheral all
 endif

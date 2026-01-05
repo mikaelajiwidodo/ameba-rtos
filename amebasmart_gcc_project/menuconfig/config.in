@@ -105,6 +105,9 @@ if [ "$CONFIG_BT_MENU" = "y" ]; then
 		fi
 		bool "BT Example Demo"											CONFIG_BT_EXAMPLE_DEMO_MENU
 		if [ "$CONFIG_BT_EXAMPLE_DEMO_MENU" = "y" ]; then
+			if [ "$CONFIG_MATTER_EN" = "y" ]; then
+				bool "  BLE_Matter_Adapter"	CONFIG_BLE_MATTER_ADAPTER
+			fi
 			bool "  BLE Peripheral"										CONFIG_BT_PERIPHERAL
 			bool "  BLE Central"										CONFIG_BT_CENTRAL
 			bool "  BLE Scatternet"										CONFIG_BT_SCATTERNET
@@ -987,9 +990,23 @@ mainmenu_option next_comment
 comment '< SSL Config'
 bool "MBEDTLS Enable"		CONFIG_MBED_TLS_ENABLED_FOR_AP
 if [ "$CONFIG_MBED_TLS_ENABLED_FOR_AP" = "y" ]; then
+if [ "$CONFIG_MATTER_EN" = "y" ]; then
+choice 'MBEDTLS Version'        "MBEDTLS_V_3_4_1   MBEDTLS_V_3_4_1_ENABLE \
+								 MBEDTLS_MATTER   MBEDTLS_MATTER_ENABLE \
+								 MBEDTLS_V_2_16_9   MBEDTLS_V_2_16_9_ENABLE
+								 " MBEDTLS_MATTER
+	if [ "$MATTER_V_1_4_EN" = "y" ] || [ "$MATTER_V_1_5_EN" = "y" ]; then
+		if [ "$MBEDTLS_MATTER_ENABLE" = "y" ]; then
+			choice 'Matter MBEDTLS Version' "MBEDTLS_MATTER_V_2_28_1   MBEDTLS_MATTER_V_2_28_1_ENABLE \
+											MBEDTLS_MATTER_V_3_6_1   MBEDTLS_MATTER_V_3_6_1_ENABLE
+											"
+		fi
+	fi
+else
 choice 'MBEDTLS Version'        "MBEDTLS_V_3_4_1   MBEDTLS_V_3_4_1_ENABLE \
 								 MBEDTLS_V_2_16_9   MBEDTLS_V_2_16_9_ENABLE
 								 " MBEDTLS_V_2_16_9
+fi
 
 if [ "$MBEDTLS_V_3_4_1_ENABLE" = "y" ]; then
 define_int	MBEDTLS_VERSION     0x03040100
@@ -1099,6 +1116,28 @@ bool "Enable IPC Message Queue"        CONFIG_IMQ_EN_FOR_AP
 if [ "$CONFIG_IMQ_EN_FOR_AP" = "y" ]; then
 	bool "Enable RPC"	 CONFIG_RPC_EN_FOR_AP
 	bool "Enable IPC Message Queue Test"        CONFIG_IMQ2_TEST_FOR_AP
+fi
+endmenu
+
+mainmenu_option next_comment
+comment '< Matter Config '
+bool "Enable Matter"							CONFIG_MATTER_EN
+if [ "$CONFIG_MATTER_EN" = "y" ]; then
+	define_bool CONFIG_MATTER y
+	choice 'Matter Version' "MATTER_V_1_3   MATTER_V_1_3_EN \
+							MATTER_V_1_4   MATTER_V_1_4_EN \
+							MATTER_V_1_5   MATTER_V_1_5_EN
+							"
+	if [ "$MATTER_V_1_4_EN" = "y" ] || [ "$MATTER_V_1_5_EN" = "y" ]; then
+		bool "Enable Matter Terms and Condition"		CONFIG_MATTER_TC_EN
+		if [ "$CONFIG_MATTER_TC_EN" = "y" ]; then
+			define_bool CHIP_ENABLE_AMEBA_TERMS_AND_CONDITION y
+		fi
+	fi
+	bool "Enable Matter Secure"					CONFIG_MATTER_SECURE_EN
+	if [ "$CONFIG_MATTER_SECURE_EN" = "y" ]; then
+		define_bool CONFIG_MATTER_SECURE y
+	fi
 fi
 endmenu
 

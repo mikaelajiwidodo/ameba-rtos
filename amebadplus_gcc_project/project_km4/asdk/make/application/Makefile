@@ -25,6 +25,9 @@ COMPONENT_CLEAN += wifi-audio-src
 $(foreach n, $(COMPONENT), $(eval $(call GenerateTargets, $(n),all)))
 
 all: $(addsuffix -all, $(COMPONENT)) 
+ifeq ($(CONFIG_MATTER_EN),y)
+	@make -C $(MATTER_BUILD_DIR)/make all
+endif
 
 #*****************************************************************************#
 #              CLEAN GENERATED FILES                                          #
@@ -32,5 +35,8 @@ all: $(addsuffix -all, $(COMPONENT))
 $(foreach n, $(COMPONENT_CLEAN), $(eval $(call GenerateTargets,$(n),clean)))
 
 clean: $(addsuffix -clean, $(COMPONENT_CLEAN))
+ifeq ($(CONFIG_MATTER_EN),y)
+	@make -C $(MATTER_BUILD_DIR)/make clean
+endif
 
 -include $(DEPS)
