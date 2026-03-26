@@ -27,32 +27,32 @@ typedef enum {
 	BLE_MATTER_MSG_CCCD_EN,
 	BLE_MATTER_MSG_CCCD_DIS,
 	BLE_MATTER_MSG_SEND_COMPLETE,
-	BLE_MATTER_MSG_READ
+	BLE_MATTER_MSG_DEINIT
 } BLE_MATTER_APP_MSG;
 
 typedef struct {
-	uint8_t conn_id;
+	uint16_t conn_handle;
 } BLE_MATTER_APP_CONNECT_CB_ARG;
 
 typedef struct {
-	uint8_t conn_id;
+	uint16_t conn_handle;
 	uint16_t disc_cause;
 } BLE_MATTER_APP_DISCONNECT_CB_ARG;
 
 typedef struct {
-	uint8_t conn_id;
+	uint16_t conn_handle;
 	uint8_t *p_value;
 	uint16_t len;
 } BLE_MATTER_APP_WRITE_CB_ARG;
 
 typedef struct {
-	uint8_t conn_id;
+	uint16_t conn_handle;
 	uint8_t indicationsEnabled;
 	uint8_t notificationsEnabled;
 } BLE_MATTER_APP_CCCD_CB_ARG;
 
 typedef struct {
-	uint8_t conn_id;
+	uint16_t conn_handle;
 } BLE_MATTER_APP_SEND_COMPLETE_CB_ARG;
 
 typedef struct {
@@ -62,13 +62,7 @@ typedef struct {
 
 void ble_matter_adapter_ble_service_callback(uint8_t event, void *data);
 
-void ble_matter_adapter_srv_cccd_indicate(uint16_t conn_handle);
-
 uint16_t ble_matter_adapter_srv_add(void);
-
-void ble_matter_srv_disconnect(uint16_t conn_handle);
-
-void ble_matter_srv_status_deinit(void);
 
 #ifdef __cplusplus
 }

@@ -36,7 +36,6 @@ set(private_compile_options)         #private compile_options
 # Component private part, user config begin
 
 ameba_list_append(private_includes
-    ${c_CMPT_BLUETOOTH_DIR}/rtk_stack/inc/os
     ${c_CMPT_BLUETOOTH_DIR}/example/gatt_service/server
 )
 
