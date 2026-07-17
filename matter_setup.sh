@@ -3,7 +3,7 @@
 if [ "$#" -lt 2 ]; then
   echo "Usage: $0 <IC type> <Matter version>"
   echo "IC type       : ameba-rtos"
-  echo "Matter version: v1.5"
+  echo "Matter version: v1.5 / v1.6"
   exit 1
 fi
 
@@ -57,11 +57,11 @@ case "$AMEBA" in
 esac
 
 case "$MATTER_VER" in
-  v1.5)
+  v1.5|v1.6)
     echo "Matter Version is set to $MATTER_VER"
     ;;
   *)
-    echo "Invalid Matter version argument. Expected 'v1.5'."
+    echo "Invalid Matter version argument. Expected 'v1.5' / 'v1.6'."
     exit 1
     ;;
 esac
@@ -79,14 +79,14 @@ ln -s ../../connectedhomeip connectedhomeip
 cd ../
 
 case "$MATTER_VER" in
-  v1.5)
+  v1.5|v1.6)
     if [ ! -d component/application/matter ] || [ -z "$(find component/application/matter -mindepth 1)" ]; then
       mkdir -p component/application/matter
       git clone https://github.com/Ameba-AIoT/ameba-rtos-matter.git component/application/matter -b ameba-rtos/release/$MATTER_VER
     fi
     ;;
   *)
-    echo "Invalid argument. Expected 'v1.5'."
+    echo "Invalid argument. Expected 'v1.5' / 'v1.6'."
     exit 1
     ;;
 esac
