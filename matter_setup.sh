@@ -3,7 +3,7 @@
 if [ "$#" -lt 2 ]; then
   echo "Usage: $0 <IC type> <Matter version>"
   echo "IC type       : ameba-rtos"
-  echo "Matter version: v1.5"
+  echo "Matter version: v1.5 / v1.6"
   exit 1
 fi
 
@@ -66,11 +66,11 @@ case "$AMEBA" in
 esac
 
 case "$MATTER_VER" in
-  v1.5)
+  v1.5|v1.6)
     echo "Matter Version is set to $MATTER_VER"
     ;;
   *)
-    echo "Invalid Matter version argument. Expected 'v1.5'."
+    echo "Invalid Matter version argument. Expected 'v1.5' / 'v1.6'."
     exit 1
     ;;
 esac

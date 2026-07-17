@@ -365,11 +365,7 @@ GLOBAL_CFLAGS += -DIMAGE2_BUILD
 endif
 
 ifeq ($(CONFIG_MATTER_EN), y)
-ifeq ($(MATTER_V_1_5_EN), y)
 include $(BASEDIR)/component/application/matter/project/makefile/amebalite/Makefile.include.matter
-else
-include $(BASEDIR)/component/application/matter/project/amebalite/Makefile.include.matter
-endif
 endif
 
 #*****************************************************************************#
